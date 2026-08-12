@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { Pool } from "pg";
 import { BLANK_ISSUE, EMPTY_ASSESSMENTS, type Issue } from "./types";
+import { DEMO_ISSUES } from "./seed";
 
 /**
  * Two interchangeable backends behind one interface:
@@ -138,13 +139,26 @@ function complete(i: Partial<Issue>): Issue {
   return { ...BLANK_ISSUE, ...i } as Issue;
 }
 
+/** Demo records with stable ids, so every serverless instance shows the same two. */
+function demoIssues(): Issue[] {
+  return DEMO_ISSUES.map((i) =>
+    complete({ ...i, createdAt: i.createdAt ?? new Date(0).toISOString() })
+  );
+}
+
 async function readFile(): Promise<Issue[]> {
   try {
     const raw = JSON.parse(await fs.readFile(FILE, "utf8")) as Partial<Issue>[];
-    return raw.map(complete);
+    if (raw.length) return raw.map(complete);
   } catch {
-    return [];
+    // no file yet on this instance
   }
+  // Without a database each instance starts from scratch, so it seeds itself
+  // rather than showing an empty register. Writes stay local to the instance —
+  // the UI says so.
+  const demo = demoIssues();
+  await writeFile(demo).catch(() => undefined);
+  return demo;
 }
 
 async function writeFile(issues: Issue[]): Promise<void> {

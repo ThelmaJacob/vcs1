@@ -25,6 +25,8 @@ function ago(days: number): string {
 
 export const DEMO_ISSUES: Partial<Issue>[] = [
   {
+    id: "demo-issue-1001",
+    issueNo: 1001,
     title: "Lorem ipsum reimbursement framework",
     country: "FR",
     lead: "Ada Lorem",
@@ -60,6 +62,8 @@ export const DEMO_ISSUES: Partial<Issue>[] = [
     lastUpdateBy: "Ada Lorem",
   },
   {
+    id: "demo-issue-1002",
+    issueNo: 1002,
     title: "Dolor sit amet import tariff review",
     country: "BR",
     lead: "Tomas Amet",
