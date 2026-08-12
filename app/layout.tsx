@@ -12,7 +12,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Public Affairs — Value Capture System",
+  title: "VCS — Public Affairs Value Capture System",
   description: "Issue tracking and value capture for Public Affairs.",
 };
 

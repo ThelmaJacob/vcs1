@@ -1,6 +1,6 @@
-# AKE — Public Affairs Value Capture System (web)
+# VCS — Public Affairs Value Capture System (web)
 
-Web rewrite of the Bayer Power Apps canvas app, for the AKE project (Thelma).
+Web rewrite of the Bayer Power Apps canvas app (Public Affairs, for Thelma).
 Next.js 15 + React 19 + Tailwind 4, hosted on Vercel.
 
 Everything visible in the app is placeholder data. No real issue, person or figure
@@ -39,8 +39,8 @@ has a key.
 
 `lib/db.ts` has two interchangeable backends behind one interface:
 
-- **Postgres** as soon as `DATABASE_URL` is set — table `ake_issues`, created
-  automatically on the first `/api/seed` call. The `ake_` prefix keeps it clear of
+- **Postgres** as soon as `DATABASE_URL` is set — table `vcs_issues`, created
+  automatically on the first `/api/seed` call. The `vcs_` prefix keeps it clear of
   the other projects sharing the database.
 - **JSON file** otherwise. Local development only: on Vercel it falls back to `/tmp`,
   which is wiped between instances. The app shows an amber banner whenever it is

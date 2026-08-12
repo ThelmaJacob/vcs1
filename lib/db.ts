@@ -15,7 +15,7 @@ import { DEMO_ISSUES } from "./seed";
 // and it is wiped between instances. That is fine for a look-around, never for
 // real records — the UI says so out loud when DATABASE_URL is missing.
 const FILE = process.env.VERCEL
-  ? path.join("/tmp", "ake-vcs", "issues.json")
+  ? path.join("/tmp", "vcs", "issues.json")
   : path.join(process.cwd(), ".data", "issues.json");
 
 export const usingPostgres = Boolean(process.env.DATABASE_URL);
@@ -171,7 +171,7 @@ async function writeFile(issues: Issue[]): Promise<void> {
 const DDL = `
 create extension if not exists "pgcrypto";
 
-create table if not exists ake_issues (
+create table if not exists vcs_issues (
   id                      uuid primary key default gen_random_uuid(),
   issue_no                integer not null,
   title                   text not null,
@@ -208,10 +208,10 @@ create table if not exists ake_issues (
   last_update_by          text not null default ''
 );
 
-create index if not exists ake_issues_country_idx on ake_issues (country);
-create index if not exists ake_issues_closed_idx  on ake_issues (closed);
-create index if not exists ake_issues_stage_idx   on ake_issues (funnel_stage);
-create unique index if not exists ake_issues_no_idx on ake_issues (issue_no);
+create index if not exists vcs_issues_country_idx on vcs_issues (country);
+create index if not exists vcs_issues_closed_idx  on vcs_issues (closed);
+create index if not exists vcs_issues_stage_idx   on vcs_issues (funnel_stage);
+create unique index if not exists vcs_issues_no_idx on vcs_issues (issue_no);
 `;
 
 /** Creates the table when it is missing. Safe to replay. */
@@ -226,7 +226,7 @@ export async function listIssues(): Promise<Issue[]> {
   if (!usingPostgres) {
     return (await readFile()).sort((a, b) => a.title.localeCompare(b.title));
   }
-  const { rows } = await pg().query(`select ${COLUMNS} from ake_issues order by title asc`);
+  const { rows } = await pg().query(`select ${COLUMNS} from vcs_issues order by title asc`);
   return rows.map(toIssue);
 }
 
@@ -262,8 +262,8 @@ export async function createIssue(patch: Partial<Issue>): Promise<Issue> {
   }
   const placeholders = cols.map((_, idx) => `$${idx + 1}`);
   const { rows } = await pg().query(
-    `insert into ake_issues (issue_no, ${cols.join(", ")})
-     values ((select coalesce(max(issue_no), 1000) + 1 from ake_issues), ${placeholders.join(", ")})
+    `insert into vcs_issues (issue_no, ${cols.join(", ")})
+     values ((select coalesce(max(issue_no), 1000) + 1 from vcs_issues), ${placeholders.join(", ")})
      returning ${COLUMNS}`,
     values
   );
@@ -296,7 +296,7 @@ export async function updateIssue(id: string, patch: Partial<Issue>): Promise<Is
   if (!sets.length) return null;
   values.push(id);
   const { rows } = await pg().query(
-    `update ake_issues set ${sets.join(", ")} where id = $${values.length} returning ${COLUMNS}`,
+    `update vcs_issues set ${sets.join(", ")} where id = $${values.length} returning ${COLUMNS}`,
     values
   );
   return rows[0] ? toIssue(rows[0]) : null;
@@ -309,7 +309,7 @@ export async function deleteIssue(id: string): Promise<boolean> {
     await writeFile(next);
     return next.length !== issues.length;
   }
-  const res = await pg().query("delete from ake_issues where id = $1", [id]);
+  const res = await pg().query("delete from vcs_issues where id = $1", [id]);
   return (res.rowCount ?? 0) > 0;
 }
 
@@ -318,7 +318,7 @@ export async function replaceAll(issues: Issue[]): Promise<void> {
     await writeFile(issues);
     return;
   }
-  await pg().query("delete from ake_issues");
+  await pg().query("delete from vcs_issues");
   for (const i of issues) {
     await createIssue(i);
   }
