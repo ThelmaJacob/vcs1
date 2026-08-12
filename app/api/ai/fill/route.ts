@@ -25,7 +25,7 @@ Rules:
 - description: three to six sentences of plain factual prose describing what the issue is, who drives it and why it matters.
 - worstCaseRisk and bestCaseOpportunity: two to four sentences each, describing the downside and the upside for the company.
 - Monetary values are in million EUR. Propose them only if the briefing gives figures or a clear order of magnitude.
-- Signs matter. worstCaseSalesValue is the effect on sales in the worst case: negative for a loss, positive only if the worst case still adds sales. bestCaseSalesValue is the effect in the best case, positive for upside. "A downside of 15 million" means worstCaseSalesValue = -15. Value at Stake is computed as bestCaseSalesValue minus worstCaseSalesValue, so a wrong sign doubles the error.
+- Every monetary value is a positive magnitude. Never propose a negative number. worstCaseSalesValue is how much sales is at risk in the worst case, bestCaseSalesValue is how much is to be gained in the best case. "A downside of 15 million" means worstCaseSalesValue = 15, not -15.
 - confidence: "high" when the briefing states it, "medium" when it is a reasonable reading, "low" when you are extrapolating.
 - duplicateIds: existing issues that look like the same topic. Be strict: same subject and same country, not merely the same theme.
 - notes: what is still missing for the record to be complete. One short sentence per gap, at most three.

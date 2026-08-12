@@ -164,8 +164,11 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
         <input
           type="number"
           step="0.01"
+          min="0"
           value={draft[k] === null || draft[k] === undefined ? "" : String(draft[k])}
-          onChange={(e) => set(k, (e.target.value === "" ? null : Number(e.target.value)) as never)}
+          onChange={(e) =>
+            set(k, (e.target.value === "" ? null : Math.abs(Number(e.target.value))) as never)
+          }
           className="field tabular-nums"
         />
       ) : (

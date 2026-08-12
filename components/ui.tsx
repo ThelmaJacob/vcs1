@@ -31,12 +31,12 @@ export function Vas({
   size?: "sm" | "lg" | "xl";
 }) {
   if (value === null) return <span className="text-ink-soft/70 italic">—</span>;
-  const tone = value > 0 ? "text-green" : value < 0 ? "text-red" : "text-ink-soft";
+  // Values are magnitudes, so a figure is either significant or zero, never negative.
+  const tone = value > 0 ? "text-green" : "text-ink-soft";
   const sizes = { sm: "text-[13px]", lg: "text-[18px]", xl: "text-[26px]" };
   return (
     <span className={`font-bold tabular-nums ${tone} ${sizes[size]}`}>
-      {value > 0 ? "+" : ""}
-      {value.toLocaleString("en-GB", { maximumFractionDigits: 2 })}
+      {Math.abs(value).toLocaleString("en-GB", { maximumFractionDigits: 2 })}
     </span>
   );
 }
@@ -45,7 +45,7 @@ export function Money({ value }: { value: number | null }) {
   if (value === null) return <span className="text-ink-soft/70 italic">To be completed</span>;
   return (
     <span className="font-semibold tabular-nums">
-      {value.toLocaleString("en-GB", { maximumFractionDigits: 2 })}
+      {Math.abs(value).toLocaleString("en-GB", { maximumFractionDigits: 2 })}
     </span>
   );
 }

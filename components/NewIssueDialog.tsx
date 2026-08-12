@@ -241,9 +241,10 @@ export default function NewIssueDialog({ onClose }: { onClose: () => void }) {
       <input
         type="number"
         step="0.01"
+        min="0"
         value={shown(name) === null || shown(name) === undefined ? "" : String(shown(name))}
         onChange={(e) => {
-          const v = e.target.value === "" ? null : Number(e.target.value);
+          const v = e.target.value === "" ? null : Math.abs(Number(e.target.value));
           isSuggested(name) ? setSuggested((s) => ({ ...s, [name]: v })) : set(name, v);
         }}
         className={`field tabular-nums ${isSuggested(name) ? "suggested" : ""}`}

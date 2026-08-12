@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   Add20Filled,
-  CheckmarkCircle20Filled,
+  ArrowTrendingDownFilled,
+  ArrowTrendingFilled,
   ClockDismiss20Filled,
-  Money20Filled,
   Signature20Regular,
 } from "@fluentui/react-icons";
 import { useStore } from "@/lib/store";
@@ -27,18 +27,23 @@ function Kpi({
   hint,
   icon: Icon,
   tone = "navy",
+  valueTone,
 }: {
   label: string;
   value: string;
   hint?: string;
   icon: React.ComponentType<{ className?: string }>;
-  tone?: "navy" | "green" | "amber";
+  tone?: "navy" | "green" | "amber" | "red";
+  valueTone?: "green" | "red";
 }) {
   const tones = {
     navy: "text-navy bg-navy-tint",
     green: "text-green bg-green-tint",
     amber: "text-[#9a6410] bg-amber-tint",
+    red: "text-red bg-red-tint",
   };
+  const valueColour =
+    valueTone === "green" ? "text-green" : valueTone === "red" ? "text-red" : "text-navy";
   return (
     <div className="card flex items-center gap-3 p-4">
       <span className={`flex h-10 w-10 items-center justify-center rounded-[4px] ${tones[tone]}`}>
@@ -48,7 +53,7 @@ function Kpi({
         <span className="block text-[11.5px] font-semibold uppercase tracking-wide text-ink-soft">
           {label}
         </span>
-        <span className="block text-[22px] font-bold leading-tight text-navy tabular-nums">
+        <span className={`block text-[22px] font-bold leading-tight tabular-nums ${valueColour}`}>
           {value}
         </span>
         {hint && <span className="block text-[11.5px] text-ink-soft">{hint}</span>}
@@ -67,7 +72,18 @@ function BarList({
   const max = Math.max(1, ...rows.map((r) => r.count));
   return (
     <section className="card p-4">
-      <h2 className="mb-3 text-[13px] font-bold text-navy">{title}</h2>
+      <h2 className="mb-2 text-[13px] font-bold text-navy">{title}</h2>
+
+      {/* Column legend: without it the two figures on the right are unreadable. */}
+      <div className="mb-2 grid grid-cols-[130px_1fr_auto] items-end gap-3 border-b border-line pb-1.5 text-[10.5px] font-semibold uppercase tracking-wide text-ink-soft">
+        <span />
+        <span>Share of issues</span>
+        <span className="flex items-baseline gap-3 whitespace-nowrap">
+          <span className="w-12 text-right">Issues</span>
+          <span className="w-24 text-right">Value at stake, M€</span>
+        </span>
+      </div>
+
       <div className="space-y-2">
         {rows.map((r) => (
           <div key={r.key} className="grid grid-cols-[130px_1fr_auto] items-center gap-3">
@@ -81,8 +97,8 @@ function BarList({
               />
             </span>
             <span className="flex items-baseline gap-3 whitespace-nowrap text-[12px]">
-              <span className="w-8 text-right font-semibold tabular-nums">{r.count}</span>
-              <span className="w-20 text-right">
+              <span className="w-12 text-right font-semibold tabular-nums">{r.count}</span>
+              <span className="w-24 text-right">
                 <Vas value={r.vas} />
               </span>
             </span>
@@ -124,8 +140,8 @@ export default function DashboardPage() {
       closed,
       stale,
       countryCount: countries.size,
-      openVas: sum(open),
-      capturedVas: sum(closed),
+      worstCase: open.reduce((t, i) => t + Math.abs(i.worstCaseSalesValue ?? 0), 0),
+      bestCase: open.reduce((t, i) => t + Math.abs(i.bestCaseSalesValue ?? 0), 0),
       byCountry: group((i) => (i.country ? [i.country] : []), Object.fromEntries(issues.map((i) => [i.country, `${i.country} — ${countryName(i.country)}`]))).slice(0, 8),
       byDivision: group(
         (i) => i.divisions,
@@ -168,18 +184,20 @@ export default function DashboardPage() {
           icon={Signature20Regular}
         />
         <Kpi
-          label="Value at stake, open"
-          value={`${stats.openVas.toLocaleString("en-GB", { maximumFractionDigits: 1 })} M€`}
-          hint="Best case minus worst case"
-          icon={Money20Filled}
-          tone="green"
+          label="Worst case, open"
+          value={`${stats.worstCase.toLocaleString("en-GB", { maximumFractionDigits: 1 })} M€`}
+          hint="Sales at risk across open issues"
+          icon={ArrowTrendingDownFilled}
+          tone="red"
+          valueTone="red"
         />
         <Kpi
-          label="Value captured, closed"
-          value={`${stats.capturedVas.toLocaleString("en-GB", { maximumFractionDigits: 1 })} M€`}
-          hint="Recorded at closure"
-          icon={CheckmarkCircle20Filled}
+          label="Best case, open"
+          value={`${stats.bestCase.toLocaleString("en-GB", { maximumFractionDigits: 1 })} M€`}
+          hint="Sales to be gained across open issues"
+          icon={ArrowTrendingFilled}
           tone="green"
+          valueTone="green"
         />
         <Kpi
           label="Not updated 60+ days"
@@ -204,6 +222,15 @@ export default function DashboardPage() {
           Top issues by value at stake
         </h2>
         <table className="w-full">
+          <thead>
+            <tr className="border-b border-line text-[10.5px] font-semibold uppercase tracking-wide text-ink-soft">
+              <th className="px-4 py-2 text-left">Issue title</th>
+              <th className="w-[80px] px-3 py-2 text-left">Country</th>
+              <th className="w-[150px] px-3 py-2 text-left">Actionability</th>
+              <th className="w-[110px] px-3 py-2 text-left">Status</th>
+              <th className="w-[150px] px-4 py-2 text-right">Value at stake, M€</th>
+            </tr>
+          </thead>
           <tbody>
             {stats.top.map((i) => (
               <tr key={i.id} className="border-b border-line/70 last:border-0 hover:bg-muted/60">

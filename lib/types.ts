@@ -189,15 +189,19 @@ export const BLANK_ISSUE: Omit<Issue, "id" | "issueNo" | "createdAt"> = {
   lastUpdateBy: "",
 };
 
-/** Scenario Value at Stake = best case sales value − worst case sales value. */
+/**
+ * Every monetary field is a positive magnitude: the worst case holds how much is
+ * at risk, the best case how much is to be gained. The value at stake is what
+ * hangs on the issue in either direction, so it is their sum and never negative.
+ */
 export function scenarioVas(i: Issue): number | null {
   if (i.bestCaseSalesValue === null && i.worstCaseSalesValue === null) return null;
-  return (i.bestCaseSalesValue ?? 0) - (i.worstCaseSalesValue ?? 0);
+  return Math.abs(i.bestCaseSalesValue ?? 0) + Math.abs(i.worstCaseSalesValue ?? 0);
 }
 
 /** Value at Stake shown in the table: the realised value once closed, the scenario spread before. */
 export function issueVas(i: Issue): number | null {
-  if (i.closed && i.closureSalesValue !== null) return i.closureSalesValue;
+  if (i.closed && i.closureSalesValue !== null) return Math.abs(i.closureSalesValue);
   return scenarioVas(i);
 }
 
