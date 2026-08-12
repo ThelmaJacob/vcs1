@@ -90,6 +90,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setLoading(true);
     try {
       const res = await fetch("/api/issues");
+      // An expired session used to leave the screen silently empty.
+      if (res.status === 401) {
+        window.location.href = "/login";
+        return;
+      }
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Failed to load issues");
       setIssues(json.issues);

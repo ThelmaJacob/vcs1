@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   Add20Filled,
-  ArrowTrendingDownFilled,
-  ArrowTrendingFilled,
   ClockDismiss20Filled,
   Signature20Regular,
 } from "@fluentui/react-icons";
@@ -140,8 +138,6 @@ export default function DashboardPage() {
       closed,
       stale,
       countryCount: countries.size,
-      worstCase: open.reduce((t, i) => t + Math.abs(i.worstCaseSalesValue ?? 0), 0),
-      bestCase: open.reduce((t, i) => t + Math.abs(i.bestCaseSalesValue ?? 0), 0),
       byCountry: group((i) => (i.country ? [i.country] : []), Object.fromEntries(issues.map((i) => [i.country, `${i.country} — ${countryName(i.country)}`]))).slice(0, 8),
       byDivision: group(
         (i) => i.divisions,
@@ -176,28 +172,12 @@ export default function DashboardPage() {
         </span>
       </div>
 
-      <div className="mb-4 grid grid-cols-4 gap-4">
+      <div className="mb-4 grid grid-cols-2 gap-4">
         <Kpi
           label="Open issues"
           value={String(stats.open.length)}
           hint={`${stats.closed.length} closed`}
           icon={Signature20Regular}
-        />
-        <Kpi
-          label="Worst case, open"
-          value={`${stats.worstCase.toLocaleString("en-GB", { maximumFractionDigits: 1 })} M€`}
-          hint="Sales at risk across open issues"
-          icon={ArrowTrendingDownFilled}
-          tone="red"
-          valueTone="red"
-        />
-        <Kpi
-          label="Best case, open"
-          value={`${stats.bestCase.toLocaleString("en-GB", { maximumFractionDigits: 1 })} M€`}
-          hint="Sales to be gained across open issues"
-          icon={ArrowTrendingFilled}
-          tone="green"
-          valueTone="green"
         />
         <Kpi
           label="Not updated 60+ days"
