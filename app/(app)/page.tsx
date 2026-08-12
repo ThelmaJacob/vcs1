@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
+  Add20Filled,
   CheckmarkCircle20Filled,
   ClockDismiss20Filled,
   Money20Filled,
@@ -17,6 +18,7 @@ import {
   issueVas,
   type Issue,
 } from "@/lib/types";
+import NewIssueDialog from "@/components/NewIssueDialog";
 import { ActionabilityPill, Badge, Vas } from "@/components/ui";
 
 function Kpi({
@@ -94,6 +96,7 @@ function BarList({
 
 export default function DashboardPage() {
   const { issues, loading } = useStore();
+  const [creating, setCreating] = useState(false);
 
   const stats = useMemo(() => {
     const open = issues.filter((i) => !i.closed);
@@ -114,10 +117,13 @@ export default function DashboardPage() {
         .sort((a, b) => b.count - a.count);
     };
 
+    const countries = new Set(issues.map((i) => i.country).filter(Boolean));
+
     return {
       open,
       closed,
       stale,
+      countryCount: countries.size,
       openVas: sum(open),
       capturedVas: sum(closed),
       byCountry: group((i) => (i.country ? [i.country] : []), Object.fromEntries(issues.map((i) => [i.country, `${i.country} — ${countryName(i.country)}`]))).slice(0, 8),
@@ -145,7 +151,13 @@ export default function DashboardPage() {
             {issues.length} issues on record
           </span>
         </h1>
-        {loading && <span className="text-[12px] text-ink-soft">Loading…</span>}
+        <span className="flex items-center gap-3">
+          {loading && <span className="text-[12px] text-ink-soft">Loading…</span>}
+          <button onClick={() => setCreating(true)} className="btn-primary">
+            <Add20Filled className="h-4 w-4" />
+            New Issue
+          </button>
+        </span>
       </div>
 
       <div className="mb-4 grid grid-cols-4 gap-4">
@@ -179,7 +191,10 @@ export default function DashboardPage() {
       </div>
 
       <div className="mb-4 grid grid-cols-3 gap-4">
-        <BarList title="By country" rows={stats.byCountry} />
+        <BarList
+          title={stats.countryCount > 8 ? `By country (top 8 of ${stats.countryCount})` : "By country"}
+          rows={stats.byCountry}
+        />
         <BarList title="By division" rows={stats.byDivision} />
         <BarList title="By funnel stage" rows={stats.byStage} />
       </div>
@@ -219,6 +234,8 @@ export default function DashboardPage() {
           </tbody>
         </table>
       </section>
+
+      {creating && <NewIssueDialog onClose={() => setCreating(false)} />}
     </main>
   );
 }

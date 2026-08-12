@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  Add20Filled,
   Attach20Regular,
   Delete20Regular,
   DocumentText20Regular,
@@ -34,6 +35,7 @@ import {
   type Issue,
 } from "@/lib/types";
 import { parsePeople, useStore } from "@/lib/store";
+import NewIssueDialog from "./NewIssueDialog";
 import { Badge, CompletionDot, Money, SectionTitle, Toggle, Value, Vas } from "./ui";
 
 const TABS = ["Definition", "Categorization", "Scenarios", "Closure", "Attachments"] as const;
@@ -48,6 +50,7 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
   const [draft, setDraft] = useState<Issue>(issue);
   const [saving, setSaving] = useState(false);
   const [startingClosure, setStartingClosure] = useState(false);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     setDraft(issue);
@@ -556,6 +559,10 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
                   <Delete20Regular className="h-4 w-4" />
                   Delete
                 </button>
+                <button onClick={() => setCreating(true)} className="btn-ghost">
+                  <Add20Filled className="h-4 w-4" />
+                  New
+                </button>
                 <button onClick={() => setEditing(true)} className="btn-primary" disabled={issue.locked}>
                   <Edit20Regular className="h-4 w-4" />
                   Edit
@@ -588,6 +595,8 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
       </header>
 
       <div className="min-h-0 flex-1 overflow-auto p-5 pb-20">{panels[tab]}</div>
+
+      {creating && <NewIssueDialog onClose={() => setCreating(false)} />}
     </section>
   );
 }

@@ -20,6 +20,13 @@ const COLS: { key: string; label: string; sort?: string; align?: string; width: 
   { key: "update", label: "Last Update", sort: "update", align: "text-right", width: "w-[8%]" },
 ];
 
+/** The whole row carries the actionability colour, kept pale so the text stays readable. */
+const ROW_TONE: Record<string, string> = {
+  Possible: "bg-green-tint hover:bg-green/15",
+  Likely: "bg-amber-tint hover:bg-amber/20",
+  "Very Likely": "bg-red-tint hover:bg-red/12",
+};
+
 export default function TableView() {
   const router = useRouter();
   const { filtered, filters, setFilters, loading } = useStore();
@@ -59,12 +66,12 @@ export default function TableView() {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((i: Issue, idx) => (
+            {filtered.map((i: Issue) => (
               <tr
                 key={i.id}
                 onClick={() => router.push(`/issues/${i.id}`)}
-                className={`cursor-pointer border-b border-line/70 transition hover:bg-navy-tint/60 ${
-                  idx % 2 ? "bg-muted/45" : "bg-white"
+                className={`cursor-pointer border-b border-line/70 transition ${
+                  ROW_TONE[i.actionability] ?? "bg-white hover:bg-muted"
                 }`}
               >
                 <td className="px-3 py-2.5 align-top">
