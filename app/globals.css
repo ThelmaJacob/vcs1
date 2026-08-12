@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-open-sans), "Segoe UI", system-ui, sans-serif;
+
+  /* Bayer palette signed off by the project lead */
+  --color-navy: #10384f;
+  --color-navy-soft: #1c536f;
+  --color-navy-tint: #e7edf1;
+  --color-green: #00a651;
+  --color-green-tint: #e5f6ed;
+  --color-amber: #f5a623;
+  --color-amber-tint: #fdf1de;
+  --color-red: #d0021b;
+  --color-red-tint: #fbe6e8;
+  --color-ink: #10384f;
+  --color-ink-soft: #5c6f7a;
+  --color-surface: #ffffff;
+  --color-muted: #f2f4f5;
+  --color-line: #dde3e7;
+}
+
+/* Must stay inside @layer base: unlayered rules outrank Tailwind's utility
+   layer, which would silently kill every min-w-* class in the app. */
+@layer base {
+  * {
+    min-width: 0;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-muted);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sober scrollbars, close to the Power Apps galleries */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c3ccd2;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9fadb6;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-[3px] border border-line bg-white px-2.5 py-1.5 text-[13px] text-ink outline-none transition;
+  }
+  .field:focus {
+    @apply border-navy ring-2 ring-navy/15;
+  }
+  .field:disabled,
+  .field[aria-readonly="true"] {
+    @apply bg-muted text-ink-soft;
+  }
+  .label {
+    @apply text-[12px] font-semibold text-ink-soft;
+  }
+  .card {
+    @apply rounded-[4px] border border-line bg-white;
+  }
+  .btn,
+  .btn-primary,
+  .btn-ghost,
+  .btn-green,
+  .btn-danger {
+    @apply inline-flex items-center gap-1.5 rounded-[3px] border px-3 py-1.5 text-[12.5px] font-semibold transition disabled:cursor-not-allowed disabled:opacity-45;
+  }
+  .btn-primary {
+    @apply border-navy bg-navy text-white hover:bg-navy-soft;
+  }
+  .btn-ghost {
+    @apply border-line bg-white text-navy hover:bg-navy-tint;
+  }
+  .btn-green {
+    @apply border-green bg-green text-white hover:brightness-95;
+  }
+  .btn-danger {
+    @apply border-line bg-white text-red hover:bg-red-tint;
+  }
+}
+
+/* Fields the assistant proposed and the user has not accepted yet */
+.suggested {
+  background: var(--color-amber-tint) !important;
+  border-color: var(--color-amber) !important;
+  box-shadow: inset 3px 0 0 var(--color-amber);
+}
+
+.rich p {
+  margin-bottom: 0.75rem;
+}
+.rich ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.rich li {
+  margin-bottom: 0.25rem;
+}
+.rich strong {
+  font-weight: 700;
+}
