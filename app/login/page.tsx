@@ -22,8 +22,14 @@ export default function LoginPage() {
     if (res.ok) {
       router.replace("/");
       router.refresh();
-    } else {
+    } else if (res.status === 503) {
+      setError("This deployment is not configured yet. Its administrator must set APP_PASSWORD and AUTH_SECRET.");
+      setBusy(false);
+    } else if (res.status === 401) {
       setError("Incorrect password.");
+      setBusy(false);
+    } else {
+      setError("The server could not process the request. Try again in a moment.");
       setBusy(false);
     }
   }

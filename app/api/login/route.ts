@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { COOKIE, SESSION_DAYS, checkPassword, createSession } from "@/lib/auth";
 
 export async function POST(req: Request) {
+  if (!process.env.APP_PASSWORD || !process.env.AUTH_SECRET) {
+    return NextResponse.json(
+      { error: "not-configured", detail: "APP_PASSWORD and AUTH_SECRET are missing on this deployment." },
+      { status: 503 }
+    );
+  }
+
   const { password } = await req.json().catch(() => ({ password: "" }));
   if (typeof password !== "string" || !checkPassword(password)) {
     // Slow brute force down a little without holding a connection for long.
