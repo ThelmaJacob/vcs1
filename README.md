@@ -6,6 +6,10 @@ Next.js 15 + React 19 + Tailwind 4, hosted on Vercel.
 Everything visible in the app is placeholder data. No real issue, person or figure
 from the source application is stored in this repository.
 
+**Technical briefing** — stack, how to change things, running it on Bayer
+infrastructure, connecting it to the existing SharePoint list, and the options for
+the assistant's model: [docs/BRIEFING.md](docs/BRIEFING.md).
+
 ## Running it locally
 
 ```bash
