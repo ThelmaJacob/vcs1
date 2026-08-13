@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckmarkCircle12Filled, Warning12Filled } from "@fluentui/react-icons";
-import type { Actionability, DivisionCode, Issue } from "@/lib/types";
+import type { Actionability, DivisionCode, Issue } from "@/lib/issue-model";
 
 /* ---------- Actionability traffic light ---------- */
 

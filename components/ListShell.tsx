@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowSync20Regular, Add20Filled } from "@fluentui/react-icons";
 import FilterBar from "./FilterBar";
 import NewIssueDialog from "./NewIssueDialog";
-import { useStore } from "@/lib/store";
+import { useStore } from "@/lib/client-state";
 
 export default function ListShell({
   title,

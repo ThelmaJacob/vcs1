@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { listIssues } from "@/lib/db";
-import { digest, structured } from "@/lib/ai";
+import { listIssues } from "@/lib/data-store";
+import { digest, structured } from "@/lib/ai-client";
 import {
   ACTIONABILITIES,
   BUSINESS_AREAS,
@@ -11,7 +11,7 @@ import {
   FUNNEL_STAGES,
   IMPACT_LEVELS,
   UNIQUENESS,
-} from "@/lib/types";
+} from "@/lib/issue-model";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;

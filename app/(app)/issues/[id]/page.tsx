@@ -5,7 +5,7 @@ import Link from "next/link";
 import FilterBar from "@/components/FilterBar";
 import IssueDetail from "@/components/IssueDetail";
 import { IssueCard } from "@/components/GalleryView";
-import { useStore } from "@/lib/store";
+import { useStore } from "@/lib/client-state";
 
 export default function IssuePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

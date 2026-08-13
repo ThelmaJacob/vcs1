@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { LockClosed16Regular } from "@fluentui/react-icons";
-import { useStore } from "@/lib/store";
-import { FUNNEL_STAGES, issueVas, isStale, type FunnelStage, type Issue } from "@/lib/types";
-import { ActionabilityPill, Avatar, Badge, Divisions, Vas } from "./ui";
+import { useStore } from "@/lib/client-state";
+import { FUNNEL_STAGES, issueVas, isStale, type FunnelStage, type Issue } from "@/lib/issue-model";
+import { ActionabilityPill, Avatar, Badge, Divisions, Vas } from "./SharedElements";
 
 const UNSTAGED = "Not categorised";
 

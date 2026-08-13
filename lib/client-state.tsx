@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { type Issue, daysSince, issueVas, isStale } from "./types";
+import { type Issue, daysSince, issueVas, isStale } from "./issue-model";
 
 export interface Filters {
   country: string;

@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { Issue } from "./types";
-import { issueVas } from "./types";
+import type { Issue } from "./issue-model";
+import { issueVas } from "./issue-model";
 
 export const MODEL = "claude-sonnet-5";
 

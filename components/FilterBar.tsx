@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowCounterclockwise20Regular, Search20Regular } from "@fluentui/react-icons";
-import { useStore } from "@/lib/store";
-import { DIVISIONS, countryName } from "@/lib/types";
+import { useStore } from "@/lib/client-state";
+import { DIVISIONS, countryName } from "@/lib/issue-model";
 
 function Select({
   label,

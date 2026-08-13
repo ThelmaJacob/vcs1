@@ -1,8 +1,8 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { Pool } from "pg";
-import { BLANK_ISSUE, EMPTY_ASSESSMENTS, type Issue } from "./types";
-import { DEMO_ISSUES } from "./seed";
+import { BLANK_ISSUE, EMPTY_ASSESSMENTS, type Issue } from "./issue-model";
+import { DEMO_ISSUES } from "./demo-data";
 
 /**
  * Two interchangeable backends behind one interface:

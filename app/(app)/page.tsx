@@ -7,7 +7,7 @@ import {
   ClockDismiss20Filled,
   Signature20Regular,
 } from "@fluentui/react-icons";
-import { useStore } from "@/lib/store";
+import { useStore } from "@/lib/client-state";
 import {
   DIVISIONS,
   FUNNEL_STAGES,
@@ -15,9 +15,9 @@ import {
   isStale,
   issueVas,
   type Issue,
-} from "@/lib/types";
+} from "@/lib/issue-model";
 import NewIssueDialog from "@/components/NewIssueDialog";
-import { ActionabilityPill, Badge, Vas } from "@/components/ui";
+import { ActionabilityPill, Badge, Vas } from "@/components/SharedElements";
 
 function Kpi({
   label,

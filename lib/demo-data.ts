@@ -1,4 +1,4 @@
-import type { DivisionCode, Issue } from "./types";
+import type { DivisionCode, Issue } from "./issue-model";
 
 /**
  * Twenty demo records. Every value is invented placeholder text — no real issue,

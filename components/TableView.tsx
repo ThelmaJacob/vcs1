@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { ChevronUpDown16Regular, LockClosed16Regular } from "@fluentui/react-icons";
-import { useStore } from "@/lib/store";
-import { issueVas, isStale, type Issue } from "@/lib/types";
-import { ActionabilityPill, Badge, Divisions, Toggle, Value, Vas } from "./ui";
+import { useStore } from "@/lib/client-state";
+import { issueVas, isStale, type Issue } from "@/lib/issue-model";
+import { ActionabilityPill, Badge, Divisions, Toggle, Value, Vas } from "./SharedElements";
 
 const COLS: { key: string; label: string; sort?: string; align?: string; width: string }[] = [
   { key: "title", label: "Issue Title", sort: "title", width: "w-[18%]" },

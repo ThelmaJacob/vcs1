@@ -6,7 +6,7 @@ import {
   Send20Filled,
   Sparkle20Filled,
 } from "@fluentui/react-icons";
-import { useStore } from "@/lib/store";
+import { useStore } from "@/lib/client-state";
 
 interface Turn {
   role: "user" | "assistant";

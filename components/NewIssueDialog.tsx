@@ -9,7 +9,7 @@ import {
   Sparkle20Filled,
   Warning20Filled,
 } from "@fluentui/react-icons";
-import { parsePeople, useStore } from "@/lib/store";
+import { parsePeople, useStore } from "@/lib/client-state";
 import {
   ACTIONABILITIES,
   BUSINESS_AREAS,
@@ -20,7 +20,7 @@ import {
   IMPACT_LEVELS,
   UNIQUENESS,
   type DivisionCode,
-} from "@/lib/types";
+} from "@/lib/issue-model";
 
 type Draft = Record<string, unknown>;
 

@@ -1,6 +1,6 @@
 import AppHeader from "@/components/AppHeader";
 import AssistantChat from "@/components/AssistantChat";
-import { StoreProvider } from "@/lib/store";
+import { StoreProvider } from "@/lib/client-state";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -34,8 +34,8 @@ same closure workflow.
 | User interface | **React 19** with **Next.js 15** | The industry default. Any web developer, internal or external, can pick this up. No proprietary runtime, no vendor lock-in. |
 | Styling | **Tailwind CSS 4** | Styles live next to the markup. The corporate palette is declared once, in `app/globals.css`. |
 | Server logic | **Next.js route handlers**, Node.js | Plain HTTP endpoints. Nothing exotic. |
-| Data access | One interface, swappable implementations (`lib/db.ts`) | This is the point that matters for Bayer. See section 5. |
-| Assistant | **TypeScript** calling a model API through one function (`lib/ai.ts`) | The model provider is a single seam, not a dependency spread across the code. See section 4. |
+| Data access | One interface, swappable implementations (`lib/data-store.ts`) | This is the point that matters for Bayer. See section 5. |
+| Assistant | **TypeScript** calling a model API through one function (`lib/ai-client.ts`) | The model provider is a single seam, not a dependency spread across the code. See section 4. |
 
 The whole application is about 4 500 lines. It has five runtime dependencies.
 There is no proprietary platform underneath it, which is the main structural
@@ -53,7 +53,7 @@ These live in identified files and can be edited from the browser through the
 GitHub web editor. The README carries a table mapping each kind of change to its
 file. The dropdown lists (business areas, funnel stages, actionability,
 uniqueness, impact levels, financial impact drivers, countries) are all in one
-file, `lib/types.ts`. The stale threshold, the completion rules and the closure
+file, `lib/issue-model.ts`. The stale threshold, the completion rules and the closure
 validation rules are in that same file.
 
 **A safety net comes with this.** If an edit breaks the application, the build

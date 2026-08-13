@@ -33,10 +33,10 @@ import {
   tabCompletion,
   type DivisionCode,
   type Issue,
-} from "@/lib/types";
-import { parsePeople, useStore } from "@/lib/store";
+} from "@/lib/issue-model";
+import { parsePeople, useStore } from "@/lib/client-state";
 import NewIssueDialog from "./NewIssueDialog";
-import { Badge, CompletionDot, Money, SectionTitle, Toggle, Value, Vas } from "./ui";
+import { Badge, CompletionDot, Money, SectionTitle, Toggle, Value, Vas } from "./SharedElements";
 
 const TABS = ["Definition", "Categorization", "Scenarios", "Closure", "Attachments"] as const;
 type Tab = (typeof TABS)[number];

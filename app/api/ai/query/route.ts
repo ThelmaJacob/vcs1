@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import { listIssues } from "@/lib/db";
-import { DIGEST_COLUMNS, digest, structured } from "@/lib/ai";
+import { listIssues } from "@/lib/data-store";
+import { DIGEST_COLUMNS, digest, structured } from "@/lib/ai-client";
 import {
   ACTIONABILITIES,
   BUSINESS_AREAS,
   DIVISIONS,
   FUNNEL_STAGES,
   UNIQUENESS,
-} from "@/lib/types";
+} from "@/lib/issue-model";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 45;

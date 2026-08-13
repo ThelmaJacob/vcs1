@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createIssue, ensureSchema, listIssues, usingPostgres } from "@/lib/db";
-import { DEMO_ISSUES } from "@/lib/seed";
+import { createIssue, ensureSchema, listIssues, usingPostgres } from "@/lib/data-store";
+import { DEMO_ISSUES } from "@/lib/demo-data";
 
 export const dynamic = "force-dynamic";
 

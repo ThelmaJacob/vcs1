@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { storageIsTemporary, usingPostgres } from "@/lib/db";
+import { storageIsTemporary, usingPostgres } from "@/lib/data-store";
 
 export const dynamic = "force-dynamic";
 
