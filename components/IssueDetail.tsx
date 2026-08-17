@@ -16,7 +16,6 @@ import {
   ACTIONABILITIES,
   BUSINESS_AREAS,
   BUSINESS_UNITS,
-  CASH_FLOW_RULES,
   COUNTRIES,
   DIVISIONS,
   FINANCIAL_IMPACT_DRIVERS,
@@ -178,25 +177,6 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
         </span>
       )
     );
-
-  /** The cash flow figure is not the sales figure: the rule depends on the driver. */
-  const cashFlowNote = () => {
-    const driver = value.financialImpactDriver;
-    return (
-      <p className="mt-1 text-[11px] leading-snug text-ink-soft">
-        {driver ? (
-          <>
-            <span className="font-semibold">{driver}:</span> {CASH_FLOW_RULES[driver]}
-          </>
-        ) : (
-          <span className="italic">
-            Set the Financial Impact Driver in Categorization to see how the cash flow
-            relates to the sales figure.
-          </span>
-        )}
-      </p>
-    );
-  };
 
   /* ---------- tabs ---------- */
 
@@ -367,10 +347,7 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
         {area("worstCaseRisk", "Worst Case Risk", 9)}
         <div className="space-y-4 rounded-[4px] border border-line bg-muted/40 p-3">
           {money("worstCaseSalesValue", "Worst Case Sales Value (million EUR)")}
-          <div>
-            {money("worstCaseCashFlow", "Worst Case Cash Flow (million EUR)")}
-            {cashFlowNote()}
-          </div>
+          {money("worstCaseCashFlow", "Worst Case Sales Cash Flow (million EUR, info)")}
         </div>
       </div>
 
@@ -378,10 +355,7 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
         {area("bestCaseOpportunity", "Best Case Opportunity", 9)}
         <div className="space-y-4 rounded-[4px] border border-line bg-muted/40 p-3">
           {money("bestCaseSalesValue", "Best Case Sales Value (million EUR)")}
-          <div>
-            {money("bestCaseCashFlow", "Best Case Cash Flow (million EUR)")}
-            {cashFlowNote()}
-          </div>
+          {money("bestCaseCashFlow", "Best Case Sales Cash Flow (million EUR, info)")}
           <div className="border-t border-line pt-3">
             <div className="label mb-1">Scenario Value at Stake</div>
             <Vas value={scenarioVas(value)} size="xl" />
@@ -470,10 +444,7 @@ export default function IssueDetail({ issue }: { issue: Issue }) {
               )
             )}
             {money("closureSalesValue", "Sales Value (million EUR)")}
-            <div>
-              {money("closureCashFlow", "Cash Flow (million EUR)")}
-              {cashFlowNote()}
-            </div>
+            {money("closureCashFlow", "Sales Cash Flow (million EUR, info)")}
 
             <div className="border-t border-line pt-3">
               <div className="label mb-1">Cash Flow Value from Scenarios (info)</div>

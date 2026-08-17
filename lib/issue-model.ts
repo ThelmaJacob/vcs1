@@ -72,33 +72,6 @@ export const FINANCIAL_IMPACT_DRIVER_HELP: Record<string, string> = {
   Subsidy: "Financial assistance from a government or another organisation that reduces the cost of a product or service.",
 };
 
-/**
- * Why sales and cash flow are two separate figures rather than one.
- * The cash effect of an issue does not follow its sales effect one for one: it
- * depends on the driver. These notes are shown next to the cash flow field so
- * whoever fills it in knows what they are being asked for.
- *
- * ⚠️ The conversion factors themselves are deliberately absent. Turning a sales
- * figure into a cash figure requires margin, payment terms and depreciation
- * assumptions that only Finance can set. Nothing here computes a value: the
- * field stays manual until those figures are provided.
- */
-export const CASH_FLOW_RULES: Record<FinancialImpactDriver, string> = {
-  CapEx:
-    "Cash leaves when the asset is paid for, while the accounting effect spreads over its depreciation. The two figures follow different timelines.",
-  COGS:
-    "A change in the cost of goods sold reaches cash as suppliers are paid, close to one for one within the period.",
-  Fine:
-    "A penalty is a cash outflow on its payment date, close to one for one with the amount.",
-  OpEx: "Operating costs hit cash in the same period they are incurred.",
-  Price:
-    "A price change moves sales and cash together, less the share that does not convert within the period: receivables, rebates, discounts.",
-  Sales:
-    "A change in sales converts to cash at the contribution margin, and only once the receivable is collected.",
-  Subsidy:
-    "Cash arrives when the subsidy is actually paid, which can be well after the period it supports.",
-};
-
 export const IMPACT_TYPES = [
   "Value Protected",
   "Value Created",
