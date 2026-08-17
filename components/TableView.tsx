@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ChevronUpDown16Regular, LockClosed16Regular } from "@fluentui/react-icons";
 import { useStore } from "@/lib/client-state";
 import { issueVas, isStale, type Issue } from "@/lib/issue-model";
-import { ActionabilityPill, Badge, Divisions, Toggle, Value, Vas } from "./SharedElements";
+import { ActionabilityPill, Badge, Divisions, Toggle, Value, Vas, EmptyState } from "./SharedElements";
 
 const COLS: { key: string; label: string; sort?: string; align?: string; width: string }[] = [
   { key: "title", label: "Issue Title", sort: "title", width: "w-[18%]" },
@@ -128,9 +128,7 @@ export default function TableView() {
         </table>
 
         {!loading && filtered.length === 0 && (
-          <p className="p-8 text-center text-[13px] text-ink-soft">
-            No issue matches the current filters.
-          </p>
+          <EmptyState>No issue matches the current filters.</EmptyState>
         )}
       </div>
 

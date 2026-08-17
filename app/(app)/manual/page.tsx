@@ -33,7 +33,7 @@ const SECTIONS = [
   {
     title: "Value at Stake",
     body: [
-      "Before closure, the value at stake is the best case sales value minus the worst case sales value. Once the issue is closed, it is the value recorded at closure. All figures are in million EUR.",
+      "Every amount is a positive figure: the worst case holds how much sales is at risk, the best case how much is to be gained. Before closure, the value at stake is their sum, so it is never negative. Once the issue is closed, it is the value recorded at closure. All figures are in million EUR.",
     ],
   },
 ];
@@ -42,10 +42,16 @@ export default function ManualPage() {
   return (
     <main className="min-h-0 flex-1 overflow-auto bg-white p-6">
       <div className="mx-auto max-w-[820px]">
-        <h1 className="text-[20px] font-bold text-navy">User manual</h1>
-        <p className="mt-1 text-[13px] text-ink-soft">
-          Public Affairs — Value Capture System.
-        </p>
+        <div className="flex items-center justify-center gap-6 border-b border-line pb-5">
+          <img src="/character-extinguisher.png" alt="" width={88} height={88} />
+          <div className="text-center">
+            <h1 className="text-[20px] font-bold text-navy">User manual</h1>
+            <p className="mt-1 text-[13px] text-ink-soft">
+              Public Affairs — Value Capture System.
+            </p>
+          </div>
+          <img src="/character-timer.png" alt="" width={88} height={88} />
+        </div>
 
         <div className="mt-6 space-y-6">
           {SECTIONS.map((s) => (

@@ -186,3 +186,29 @@ export function SectionTitle({ children }: { children: React.ReactNode }) {
     </h3>
   );
 }
+
+/* ---------- Empty state ----------
+   The two characters come from the original Power Apps header. The audit asked for
+   a sober navy band, so they live here instead: on the light surfaces where an
+   illustration helps rather than competes with the data. */
+
+export function EmptyState({
+  children,
+  character = "extinguisher",
+}: {
+  children: React.ReactNode;
+  character?: "extinguisher" | "timer";
+}) {
+  return (
+    <div className="flex flex-col items-center gap-2 px-6 py-12 text-center">
+      <img
+        src={`/character-${character}.png`}
+        alt=""
+        width={112}
+        height={112}
+        className="opacity-90"
+      />
+      <p className="text-[13px] text-ink-soft">{children}</p>
+    </div>
+  );
+}

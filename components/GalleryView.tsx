@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronRight16Regular, LockClosed16Regular } from "@fluentui/react-icons";
 import { useStore } from "@/lib/client-state";
 import { issueVas, isStale, tabCompletion, type Issue } from "@/lib/issue-model";
-import { ActionabilityPill, Avatar, Badge, CompletionDot, Divisions, Value, Vas } from "./SharedElements";
+import { ActionabilityPill, Avatar, Badge, CompletionDot, Divisions, Value, Vas, EmptyState } from "./SharedElements";
 
 export function IssueCard({
   issue,
@@ -91,9 +91,7 @@ export default function GalleryView() {
         ))}
       </div>
       {!loading && filtered.length === 0 && (
-        <p className="p-8 text-center text-[13px] text-ink-soft">
-          No issue matches the current filters.
-        </p>
+        <EmptyState>No issue matches the current filters.</EmptyState>
       )}
     </div>
   );
