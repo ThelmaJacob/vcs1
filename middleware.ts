@@ -15,5 +15,9 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!login|api/login|api/health|_next/static|_next/image|favicon.ico).*)"],
+  // Static files must be excluded too: the sign-in screen needs its images
+  // before a session exists, and the middleware would otherwise redirect them.
+  matcher: [
+    "/((?!login|api/login|api/health|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|woff2?)$).*)",
+  ],
 };
