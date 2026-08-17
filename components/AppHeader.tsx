@@ -4,14 +4,11 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowExit20Regular,
-  ArrowLeft20Regular,
-  ArrowSync20Regular,
   BoardSplit20Regular,
   DataUsage20Regular,
   Table20Regular,
   QuestionCircle20Regular,
 } from "@fluentui/react-icons";
-import { useStore } from "@/lib/client-state";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: DataUsage20Regular },
@@ -22,7 +19,6 @@ const NAV = [
 export default function AppHeader() {
   const pathname = usePathname();
   const router = useRouter();
-  const { reload, loading } = useStore();
 
   async function signOut() {
     await fetch("/api/login", { method: "DELETE" });
@@ -97,21 +93,7 @@ export default function AppHeader() {
           );
         })}
 
-        <span className="ml-auto flex items-center gap-2">
-          <button onClick={() => router.back()} className="btn-ghost" title="Previous screen">
-            <ArrowLeft20Regular className="h-4 w-4" />
-            Back
-          </button>
-          <button
-            onClick={() => void reload()}
-            disabled={loading}
-            className="btn-ghost"
-            title="Fetch the issues again"
-          >
-            <ArrowSync20Regular className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            Reload
-          </button>
-        </span>
+        {/* Screen-level actions go here, on the right of the view tabs. */}
       </div>
     </header>
   );
