@@ -82,6 +82,14 @@ export default function AppHeader() {
             </Link>
           );
         })}
+
+        {/* The two characters from the original app header. They live on this white
+            row rather than on the navy band, where their dark line work would sink
+            into the background. */}
+        <span className="ml-auto flex shrink-0 items-end gap-1 pr-1">
+          <img src="/character-extinguisher.png" alt="" width={38} height={38} />
+          <img src="/character-timer.png" alt="" width={38} height={38} />
+        </span>
       </div>
     </header>
   );
