@@ -39,6 +39,27 @@ export default function TableView() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
+      {/* What the row colours mean. Colour alone is not a signal, so the wording stays. */}
+      <div className="flex items-center gap-4 border-b border-line bg-muted/50 px-3 py-1.5 text-[11.5px] text-ink-soft">
+        <span className="font-semibold uppercase tracking-wide">Row colour = Actionability</span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-5 rounded-[2px] border border-green/30 bg-green-tint" />
+          Possible
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-5 rounded-[2px] border border-amber/40 bg-amber-tint" />
+          Likely
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-5 rounded-[2px] border border-red/30 bg-red-tint" />
+          Very Likely
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-5 rounded-[2px] border border-line bg-white" />
+          Not set
+        </span>
+      </div>
+
       <div className="min-h-0 flex-1 overflow-auto">
         <table className="w-full table-fixed border-collapse">
           <thead className="sticky top-0 z-10">

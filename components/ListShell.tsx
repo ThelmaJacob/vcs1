@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowSync20Regular, Add20Filled } from "@fluentui/react-icons";
+import { Add20Filled } from "@fluentui/react-icons";
 import FilterBar from "./FilterBar";
 import NewIssueDialog from "./NewIssueDialog";
 import { useStore } from "@/lib/client-state";
@@ -35,10 +35,6 @@ export default function ListShell({
           </span>
         </h1>
         <div className="flex items-center gap-2">
-          <button onClick={() => void reload()} className="btn-ghost" disabled={loading}>
-            <ArrowSync20Regular className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            Reload
-          </button>
           <button onClick={() => setCreating(true)} className="btn-primary">
             <Add20Filled className="h-4 w-4" />
             New Issue

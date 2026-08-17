@@ -4,23 +4,25 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowExit20Regular,
+  ArrowLeft20Regular,
+  ArrowSync20Regular,
   BoardSplit20Regular,
   DataUsage20Regular,
-  Grid20Regular,
   Table20Regular,
   QuestionCircle20Regular,
 } from "@fluentui/react-icons";
+import { useStore } from "@/lib/client-state";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: DataUsage20Regular },
   { href: "/table", label: "Table View", icon: Table20Regular },
-  { href: "/gallery", label: "Gallery View", icon: Grid20Regular },
   { href: "/board", label: "Funnel Board", icon: BoardSplit20Regular },
 ];
 
 export default function AppHeader() {
   const pathname = usePathname();
   const router = useRouter();
+  const { reload, loading } = useStore();
 
   async function signOut() {
     await fetch("/api/login", { method: "DELETE" });
@@ -28,10 +30,8 @@ export default function AppHeader() {
     router.refresh();
   }
 
-  const isActive = (item: (typeof NAV)[number]) => {
-    if (item.href === "/") return pathname === "/";
-    return pathname.startsWith(item.href);
-  };
+  const isActive = (item: (typeof NAV)[number]) =>
+    item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
 
   return (
     <header className="sticky top-0 z-30">
@@ -41,8 +41,6 @@ export default function AppHeader() {
           <span className="text-[17px] font-bold tracking-tight">Bayer</span>
           <span className="text-white/30">|</span>
           <span className="text-[13px] font-semibold text-white/90">Public Affairs</span>
-          <span className="text-white/30">—</span>
-          <span className="text-[13px] text-white/70">Value Capture System</span>
         </div>
         <div className="flex items-center gap-1">
           <Link
@@ -62,7 +60,25 @@ export default function AppHeader() {
         </div>
       </div>
 
-      {/* View navigation */}
+      {/* Title band, as in the original app: the same character on both sides */}
+      <div className="flex items-center justify-center gap-5 border-b border-line bg-white pt-1.5">
+        <img src="/character-extinguisher.png" alt="" width={46} height={46} />
+        <div className="text-center">
+          <h1 className="text-[15px] font-bold text-navy">
+            Public Affairs — Value Capture System
+          </h1>
+          <p className="text-[10.5px] text-ink-soft">Version 1.0</p>
+        </div>
+        <img
+          src="/character-extinguisher.png"
+          alt=""
+          width={46}
+          height={46}
+          className="-scale-x-100"
+        />
+      </div>
+
+      {/* Views, and the actions available on every screen */}
       <div className="flex h-11 items-center gap-1 border-b border-line bg-white px-3">
         {NAV.map((item) => {
           const Icon = item.icon;
@@ -72,9 +88,7 @@ export default function AppHeader() {
               key={item.label}
               href={item.href}
               className={`flex items-center gap-2 rounded-[3px] px-3 py-1.5 text-[12.5px] font-semibold transition ${
-                active
-                  ? "bg-navy-tint text-navy"
-                  : "text-ink-soft hover:bg-muted hover:text-navy"
+                active ? "bg-navy-tint text-navy" : "text-ink-soft hover:bg-muted hover:text-navy"
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -83,12 +97,20 @@ export default function AppHeader() {
           );
         })}
 
-        {/* The two characters from the original app header. They live on this white
-            row rather than on the navy band, where their dark line work would sink
-            into the background. */}
-        <span className="ml-auto flex shrink-0 items-end gap-1 pr-1">
-          <img src="/character-extinguisher.png" alt="" width={38} height={38} />
-          <img src="/character-timer.png" alt="" width={38} height={38} />
+        <span className="ml-auto flex items-center gap-2">
+          <button onClick={() => router.back()} className="btn-ghost" title="Previous screen">
+            <ArrowLeft20Regular className="h-4 w-4" />
+            Back
+          </button>
+          <button
+            onClick={() => void reload()}
+            disabled={loading}
+            className="btn-ghost"
+            title="Fetch the issues again"
+          >
+            <ArrowSync20Regular className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            Reload
+          </button>
         </span>
       </div>
     </header>

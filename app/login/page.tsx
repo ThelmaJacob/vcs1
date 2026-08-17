@@ -50,9 +50,8 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={submit} className="card p-6">
-          <div className="mb-4 flex items-end justify-center gap-3">
-            <img src="/character-extinguisher.png" alt="" width={72} height={72} />
-            <img src="/character-timer.png" alt="" width={72} height={72} />
+          <div className="mb-4 flex justify-center">
+            <img src="/character-timer.png" alt="" width={96} height={96} />
           </div>
 
           <label className="label mb-1.5 block" htmlFor="password">

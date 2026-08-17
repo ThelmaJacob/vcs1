@@ -11,8 +11,9 @@ const SECTIONS = [
   {
     title: "The four views",
     body: [
-      "Dashboard: portfolio overview — open and closed counts, value at stake, issues going stale, and the split by country, division and funnel stage.",
-      "Table View: one row per issue, every column sortable. Gallery View: the card layout of the original app. Funnel Board: the same issues as cards you can drag from one funnel stage to another.",
+      "Dashboard: portfolio overview — open and closed counts, issues going stale, and the split by country, division and funnel stage.",
+      "Back and Reload sit in the header on every screen: Back returns to the previous one, Reload fetches the issues again.",
+      "Table View: one row per issue, every column sortable, and the row takes the colour of its actionability. Funnel Board: the same issues as cards you can drag from one funnel stage to another.",
     ],
   },
   {
@@ -50,7 +51,7 @@ export default function ManualPage() {
               Public Affairs — Value Capture System.
             </p>
           </div>
-          <img src="/character-timer.png" alt="" width={88} height={88} />
+          <img src="/character-extinguisher.png" alt="" width={88} height={88} className="-scale-x-100" />
         </div>
 
         <div className="mt-6 space-y-6">

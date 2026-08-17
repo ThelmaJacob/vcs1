@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { ChevronRight16Regular, LockClosed16Regular } from "@fluentui/react-icons";
-import { useStore } from "@/lib/client-state";
 import { issueVas, isStale, tabCompletion, type Issue } from "@/lib/issue-model";
-import { ActionabilityPill, Avatar, Badge, CompletionDot, Divisions, Value, Vas, EmptyState } from "./SharedElements";
+import { ActionabilityPill, Avatar, Badge, CompletionDot, Divisions, Value, Vas } from "./SharedElements";
 
+/** One issue as a card. Used for the list beside an open issue. */
 export function IssueCard({
   issue,
   active,
@@ -75,24 +75,5 @@ export function IssueCard({
         )}
       </span>
     </Link>
-  );
-}
-
-export default function GalleryView() {
-  const { filtered, loading } = useStore();
-
-  return (
-    <div className="min-h-0 flex-1 overflow-auto p-3 pb-20">
-      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 2xl:grid-cols-3">
-        {filtered.map((issue) => (
-          <div key={issue.id} className="card overflow-hidden">
-            <IssueCard issue={issue} />
-          </div>
-        ))}
-      </div>
-      {!loading && filtered.length === 0 && (
-        <EmptyState>No issue matches the current filters.</EmptyState>
-      )}
-    </div>
   );
 }
