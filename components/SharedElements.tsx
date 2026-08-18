@@ -204,8 +204,8 @@ export function EmptyState({
       <img
         src={`/character-${character}.png`}
         alt=""
-        width={112}
-        height={112}
+        width={110}
+        height={127}
         className="opacity-90"
       />
       <p className="text-[13px] text-ink-soft">{children}</p>

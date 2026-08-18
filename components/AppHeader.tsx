@@ -57,10 +57,10 @@ export default function AppHeader() {
       </div>
 
       {/* Title band, as in the original app: the same character on both sides */}
-      <div className="flex items-center justify-center gap-5 border-b border-line bg-white pt-1.5">
-        <img src="/character-extinguisher.png" alt="" width={46} height={46} />
+      <div className="flex items-center justify-center gap-6 border-b border-line bg-white py-1.5">
+        <img src="/character-extinguisher.png" alt="" width={54} height={62} />
         <div className="text-center">
-          <h1 className="text-[15px] font-bold text-navy">
+          <h1 className="text-[16px] font-bold text-navy">
             Public Affairs — Value Capture System
           </h1>
           <p className="text-[10.5px] text-ink-soft">Version 1.0</p>
@@ -68,8 +68,8 @@ export default function AppHeader() {
         <img
           src="/character-extinguisher.png"
           alt=""
-          width={46}
-          height={46}
+          width={54}
+          height={62}
           className="-scale-x-100"
         />
       </div>

@@ -44,14 +44,14 @@ export default function ManualPage() {
     <main className="min-h-0 flex-1 overflow-auto bg-white p-6">
       <div className="mx-auto max-w-[820px]">
         <div className="flex items-center justify-center gap-6 border-b border-line pb-5">
-          <img src="/character-extinguisher.png" alt="" width={88} height={88} />
+          <img src="/character-extinguisher.png" alt="" width={90} height={104} />
           <div className="text-center">
             <h1 className="text-[20px] font-bold text-navy">User manual</h1>
             <p className="mt-1 text-[13px] text-ink-soft">
               Public Affairs — Value Capture System.
             </p>
           </div>
-          <img src="/character-extinguisher.png" alt="" width={88} height={88} className="-scale-x-100" />
+          <img src="/character-extinguisher.png" alt="" width={90} height={104} className="-scale-x-100" />
         </div>
 
         <div className="mt-6 space-y-6">

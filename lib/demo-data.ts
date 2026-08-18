@@ -197,7 +197,7 @@ const ROWS: Row[] = [
   },
   {
     title: "Duis aute irure advertising code",
-    country: "UK",
+    country: "GB",
     lead: "Helen Duis",
     team: [],
     divisions: ["CH"],
