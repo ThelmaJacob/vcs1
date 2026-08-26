@@ -1,8 +1,9 @@
+
 "use client";
 import { ArrowDownload20Regular } from "@fluentui/react-icons";
 import { useStore } from "@/lib/client-state";
 import { issueVas, type Issue } from "@/lib/issue-model";
-/* The eleven columns of the table, in the same order, and what each one writes to the file. */
+/** The eleven columns of the table, in the same order, and what each one writes to the file. */
 const COLUMNS: { header: string; value: (issue: Issue) => string }[] = [
 { header: "Issue Title", value: (i) => i.title },
 { header: "Country", value: (i) => i.country },
@@ -56,3 +57,4 @@ Export CSV
 );
 }
 Commit.
+ 
