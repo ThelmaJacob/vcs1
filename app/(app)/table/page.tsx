@@ -4,11 +4,8 @@ import TableView from "@/components/TableView";
 
 export default function TablePage() {
   return (
-    <div className="space-y-4">
-      <BackButton />
-      <ListShell title="Table View">
-        <TableView />
-      </ListShell>
-    </div>
+    <ListShell title="Table View" leading={<BackButton />}>
+      <TableView />
+    </ListShell>
   );
 }

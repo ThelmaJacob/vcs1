@@ -8,9 +8,12 @@ import { useStore } from "@/lib/client-state";
 
 export default function ListShell({
   title,
+  leading,
   children,
 }: {
   title: string;
+  /* Optional control shown to the left of the title, e.g. the Back button. */
+  leading?: React.ReactNode;
   children: React.ReactNode;
 }) {
   const { reload, loading, filtered, issues } = useStore();
@@ -28,12 +31,15 @@ export default function ListShell({
   return (
     <main className="flex min-h-0 flex-1 flex-col bg-white">
       <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-2.5">
-        <h1 className="text-[16px] font-bold text-navy">
-          {title}
-          <span className="ml-2 text-[12.5px] font-semibold text-ink-soft">
-            Showing {filtered.length} of {issues.length} items
-          </span>
-        </h1>
+        <div className="flex items-center gap-3">
+          {leading}
+          <h1 className="text-[16px] font-bold text-navy">
+            {title}
+            <span className="ml-2 text-[12.5px] font-semibold text-ink-soft">
+              Showing {filtered.length} of {issues.length} items
+            </span>
+          </h1>
+        </div>
         <div className="flex items-center gap-2">
           <button onClick={() => setCreating(true)} className="btn-primary">
             <Add20Filled className="h-4 w-4" />

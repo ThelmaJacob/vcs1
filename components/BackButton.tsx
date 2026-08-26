@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { useRouter } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { useRouter } from "next/navigation";
+import { ArrowLeft20Regular } from "@fluentui/react-icons";
 
 export default function BackButton() {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <button
       type="button"
       onClick={() => router.back()}
-      aria-label="Return to previous page"
-      className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+      aria-label="Back to the previous screen"
+      className="btn-ghost"
     >
-      <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-      <span>Retour</span>
+      <ArrowLeft20Regular className="h-4 w-4" />
+      Back
     </button>
-  )
+  );
 }
