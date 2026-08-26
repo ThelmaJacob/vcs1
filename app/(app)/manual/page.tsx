@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+{/* This is Akes first comment*/}
 const SECTIONS = [
   {
     title: "Finding an issue",
